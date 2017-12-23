@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="test">
+	<select id="queryUserById" parameterType="int" resultType="user">
+		SELECT * FROM USER WHERE id = #{id};
+	</select>
+
+	<select id="queryUserLikeUserName" parameterType="String"
+		resultType="cn.itcast.po.User">
+		SELECT * FROM USER WHERE username LIKE '%${value}%';
+	</select>
+
+	<insert id="insertUser" parameterType="cn.itcast.po.User" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+<!-- 		<selectKey keyColumn="id" keyProperty="id" resultType="int"
+			order="BEFORE">
+			SELECT LAST_INSERT_ID();
+		</selectKey> -->
+		INSERT INTO USER
+		VALUES(#{id},#{userName},#{birthday},#{sex},#{address});
+	</insert>
+
+	<update id="updateUser" parameterType="cn.itcast.po.User">
+		UPDATE USER SET username=
+		#{userName} WHERE id= #{id};
+	</update>
+
+	<delete id="deleteUserById" parameterType="int">
+		DELETE FROM USER WHERE id = #{id};
+	</delete>
+
+
+</mapper>

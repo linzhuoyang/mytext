@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<!--  加载外部属性文件-->
+	<properties resource="db.properties">
+	</properties>
+	
+	<!-- 定义别名 -->
+	<typeAliases>
+		<!--方式一  -->
+		<!-- <typeAlias type="cn.itcast.po.User" alias="user"/> -->
+		
+		<!--方式二  -->
+		<package name="cn.itcast.po"/>
+	</typeAliases>
+
+	<!-- 运行环境配置 -->
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<!-- 配置数据源信息，POOLED：myabtis框架的连接池 -->
+			<dataSource type="POOLED">
+				<!-- <property name="driver" value="com.mysql.jdbc.Driver" />
+				<property name="url" value="jdbc:mysql://127.0.0.1:3306/mybatis" />
+				<property name="username" value="root" />
+				<property name="password" value="root" /> -->
+				
+				<property name="driver" value="${db.driver}" />
+				<property name="url" value="${db.url}" />
+				<property name="username" value="${db.username}" />
+				<property name="password" value="${db.password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	
+	<!-- 加载mapper映射文件 -->
+	<mappers>
+		<!-- 加载User.xml文件，说明：
+		 resource属性：指定配置文件的位置-->
+		<mapper resource="sqlmap/User.xml"/>
+		
+		<!-- 放在resource目录下 -->
+		<!-- <mapper resource="sqlmap/UserMapper.xml"/> -->
+		
+		<!-- 需要配置文件和mapper接口同一目录下 -->
+		<package name="cn.itcast.mapper"/>
+	</mappers>
+
+</configuration>
